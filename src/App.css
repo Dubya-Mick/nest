@@ -8,3 +8,15 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.input-container {
+  width: 50vw;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.select-conatiner {
+  width: 20rem;
+}
