@@ -1,7 +1,7 @@
 import './nest.css'
-export const Nest = ({ limit, size, speed }) => {
+export const Nest = ({ depth, size, speed, scale }) => {
 
-  if (limit < 1) return null;
+  if (depth < 1) return null;
 
   const style = {
     width: `${size}rem`,
@@ -15,7 +15,7 @@ export const Nest = ({ limit, size, speed }) => {
 
   return (
     <div style={style}>
-      <Nest limit={limit -= 1} size={size *= 0.9} speed={speed}/>
+      <Nest depth={depth -= 1} size={size *= scale} speed={speed} scale={scale}/>
     </div>
   );
 }
