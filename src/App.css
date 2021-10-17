@@ -10,8 +10,8 @@ body {
 }
 
 .input-container {
-  width: 50vw;
-  margin: 2rem auto;
+  width: 80vw;
+  margin: 1rem auto;
   display: flex;
   justify-content: space-around;
   align-items: center;

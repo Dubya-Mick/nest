@@ -1,16 +1,18 @@
 import './App.css';
 import { Nest } from './components/Nest';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { Slider, Select, MenuItem } from '@mui/material';
+import { Slider, Select, MenuItem, TextField } from '@mui/material';
 
 function App() {
   const [depth, setDepth] = useState(40);
   const [scale, setScale] = useState(0.8);
   const [speed, setSpeed] = useState(40);
   const [size, setSize] = useState(25);
+  const [radius, setRadius] = useState(0);
   const [shape, setShape] = useState('square');
-  const [inputDisplay, setInputDisplay] = useState(true);
+  const [squat, setSquat] = useState(2);
+  const [text, setText] = useState('');
 
   const handleDepthChange = (newDepth) => {
     setDepth(newDepth);
@@ -31,6 +33,29 @@ function App() {
   const handleShapeChange = (newShape) => {
     setShape(newShape);
   };
+
+  const handleSquatChange = (newSquat) => {
+    setSquat(newSquat);
+  };
+
+  const handleRadiusChange = (newRadius) => {
+    setRadius(newRadius);
+  };
+
+  const handleTextInput = (textInput) => {
+    setText(textInput);
+  };
+
+  useEffect(() => {
+    if (shape === 'ellipse') {
+      setRadius(50);
+      setSquat(2);
+    }
+    if (shape === 'square') {
+      setRadius(0);
+      setSquat(1);
+    }
+  }, [shape]);
 
   return (
     <div>
@@ -68,6 +93,23 @@ function App() {
             value={speed}
             onChange={(e) => handleSpeedChange(e.target.value)}
           />
+
+          <span>Squat</span>
+          <Slider
+            min={1}
+            max={10}
+            value={squat}
+            step={0.2}
+            onChange={(e) => handleSquatChange(e.target.value)}
+          />
+          <span>Border Radius</span>
+          <Slider
+            min={0}
+            max={50}
+            value={radius}
+            step={2}
+            onChange={(e) => handleRadiusChange(e.target.value)}
+          />
         </div>
         <Select
           value={shape}
@@ -76,6 +118,11 @@ function App() {
           <MenuItem value={'square'}>Square</MenuItem>
           <MenuItem value={'ellipse'}>Ellipse</MenuItem>
         </Select>
+        <TextField
+          value={text}
+          variant="outlined"
+          onChange={(e) => handleTextInput(e.target.value)}
+        />
       </div>
       <div className="centered">
         <Nest
@@ -84,6 +131,9 @@ function App() {
           speed={speed}
           scale={scale}
           shape={shape}
+          text={text}
+          squat={squat}
+          radius={radius}
         />
       </div>
     </div>
