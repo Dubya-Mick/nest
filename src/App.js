@@ -6,13 +6,15 @@ import { Slider, Select, MenuItem, TextField } from '@mui/material';
 
 function App() {
   const [depth, setDepth] = useState(40);
+  const [animation, setAnimation] = useState('spin');
   const [scale, setScale] = useState(0.8);
   const [speed, setSpeed] = useState(40);
   const [size, setSize] = useState(25);
   const [radius, setRadius] = useState(0);
   const [shape, setShape] = useState('square');
-  const [squat, setSquat] = useState(2);
+  const [squat, setSquat] = useState(1);
   const [text, setText] = useState('');
+  const [inputDisplay, setInputDisplay] = useState(true);
 
   const handleDepthChange = (newDepth) => {
     setDepth(newDepth);
@@ -46,6 +48,14 @@ function App() {
     setText(textInput);
   };
 
+  const handleAnimationChange = (newAnimation) => {
+    setAnimation(newAnimation);
+  };
+
+  const handleToggleInput = () => {
+    setInputDisplay(!inputDisplay);
+  };
+
   useEffect(() => {
     if (shape === 'ellipse') {
       setRadius(50);
@@ -59,7 +69,16 @@ function App() {
 
   return (
     <div>
-      <div className="input-container">
+      {inputDisplay ? null : (
+        <i
+          onClick={handleToggleInput}
+          class="fas fa-paint-brush display-input"
+        ></i>
+      )}
+      <div className={`input-container ${inputDisplay ? '' : 'hidden'}`}>
+        <button className="toggle-input-button" onClick={handleToggleInput}>
+          Hide
+        </button>
         <div>
           <span>Size</span>
           <Slider
@@ -85,7 +104,7 @@ function App() {
             value={scale}
             onChange={(e) => handleScaleChange(e.target.value)}
           />
-          <span>Time to Rotate</span>
+          <span>Loop Time</span>
           <Slider
             min={5}
             max={50}
@@ -93,7 +112,6 @@ function App() {
             value={speed}
             onChange={(e) => handleSpeedChange(e.target.value)}
           />
-
           <span>Squat</span>
           <Slider
             min={1}
@@ -118,13 +136,22 @@ function App() {
           <MenuItem value={'square'}>Square</MenuItem>
           <MenuItem value={'ellipse'}>Ellipse</MenuItem>
         </Select>
+        <Select
+          value={animation}
+          onChange={(e) => handleAnimationChange(e.target.value)}
+        >
+          <MenuItem value={'spin'}>Spin</MenuItem>
+          <MenuItem value={'scan'}>Scan</MenuItem>
+          <MenuItem value={'coil'}>Coil</MenuItem>
+        </Select>
         <TextField
           value={text}
           variant="outlined"
           onChange={(e) => handleTextInput(e.target.value)}
         />
       </div>
-      <div className="centered">
+
+      <div className={inputDisplay ? 'centered-with-input' : 'centered'}>
         <Nest
           depth={depth}
           size={size}
@@ -134,6 +161,7 @@ function App() {
           text={text}
           squat={squat}
           radius={radius}
+          animation={animation}
         />
       </div>
     </div>

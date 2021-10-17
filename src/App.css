@@ -2,11 +2,24 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
+i {
+  cursor: pointer;
+}
+
 .centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: top 1s;
+}
+
+.centered-with-input {
   position: fixed;
   top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: top 1s;
 }
 
 .input-container {
@@ -15,6 +28,24 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  transition: 0.5s;
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+.toggle-input-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+  background-color: white;
+  border: none;
+  outline: 1px solid rgb(167, 167, 167);
+  border-radius: 2px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .select-conatiner {
