@@ -1,6 +1,6 @@
 import './App.css';
 import { Nest } from './components/Nest';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { Slider, Select, MenuItem, TextField } from '@mui/material';
 
@@ -11,7 +11,6 @@ function App() {
   const [speed, setSpeed] = useState(40);
   const [size, setSize] = useState(25);
   const [radius, setRadius] = useState(0);
-  const [shape, setShape] = useState('square');
   const [squat, setSquat] = useState(1);
   const [text, setText] = useState('');
   const [inputDisplay, setInputDisplay] = useState(true);
@@ -30,10 +29,6 @@ function App() {
 
   const handleSizeChange = (newSize) => {
     setSize(newSize);
-  };
-
-  const handleShapeChange = (newShape) => {
-    setShape(newShape);
   };
 
   const handleSquatChange = (newSquat) => {
@@ -56,16 +51,25 @@ function App() {
     setInputDisplay(!inputDisplay);
   };
 
-  useEffect(() => {
-    if (shape === 'ellipse') {
-      setRadius(50);
-      setSquat(2);
-    }
-    if (shape === 'square') {
-      setRadius(0);
-      setSquat(1);
-    }
-  }, [shape]);
+  const handleEllipse = () => {
+    setRadius(50);
+    setSquat(2);
+  };
+
+  const handleSquare = () => {
+    setRadius(0);
+    setSquat(1);
+  };
+
+  const handleCircle = () => {
+    setRadius(50);
+    setSquat(1);
+  };
+
+  const handleRose = () => {
+    setRadius(50);
+    setSquat(1.2);
+  };
 
   return (
     <div>
@@ -129,13 +133,12 @@ function App() {
             onChange={(e) => handleRadiusChange(e.target.value)}
           />
         </div>
-        <Select
-          value={shape}
-          onChange={(e) => handleShapeChange(e.target.value)}
-        >
-          <MenuItem value={'square'}>Square</MenuItem>
-          <MenuItem value={'ellipse'}>Ellipse</MenuItem>
-        </Select>
+        <div className="shape-buttons">
+          <button onClick={handleSquare}>Square</button>
+          <button onClick={handleEllipse}>Ellipse</button>
+          <button onClick={handleCircle}>Circle</button>
+          <button onClick={handleRose}>Rose</button>
+        </div>
         <Select
           value={animation}
           onChange={(e) => handleAnimationChange(e.target.value)}
@@ -145,6 +148,7 @@ function App() {
           <MenuItem value={'coil'}>Coil</MenuItem>
         </Select>
         <TextField
+          placeholder={'Add a word...'}
           value={text}
           variant="outlined"
           onChange={(e) => handleTextInput(e.target.value)}
@@ -157,7 +161,6 @@ function App() {
           size={size}
           speed={speed}
           scale={scale}
-          shape={shape}
           text={text}
           squat={squat}
           radius={radius}

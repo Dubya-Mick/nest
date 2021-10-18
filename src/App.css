@@ -36,16 +36,26 @@ i {
   display: none;
 }
 
-.toggle-input-button {
-  position: absolute;
-  bottom: 1rem;
-  right: 0;
+button {
   background-color: white;
   border: none;
   outline: 1px solid rgb(167, 167, 167);
   border-radius: 2px;
   padding: 0.5rem 1rem;
   cursor: pointer;
+}
+
+.toggle-input-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+}
+
+.shape-buttons {
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .select-conatiner {

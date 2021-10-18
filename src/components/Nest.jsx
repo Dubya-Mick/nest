@@ -32,7 +32,6 @@ export const Nest = ({
         size={(size *= scale)}
         speed={speed}
         scale={scale}
-        shape={shape}
         text={text}
         squat={squat}
         radius={radius}
