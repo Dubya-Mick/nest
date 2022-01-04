@@ -5,13 +5,7 @@ import { Input } from './components/Input';
 import { useState } from 'react';
 import { Microphone } from './components/Microphone';
 import { useSpeechContext, SpeechSegment } from '@speechly/react-client';
-import {
-  IntentType,
-  EntityType,
-  parseIntent,
-  parseShapeEntity,
-  parseSegment,
-} from './parser';
+import { parseSegment } from './parser';
 
 function App() {
   const [depth, setDepth] = useState(40);
