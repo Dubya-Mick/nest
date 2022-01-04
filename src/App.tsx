@@ -1,7 +1,17 @@
+import { useEffect } from 'react';
 import './App.css';
 import { Nest } from './components/Nest';
 import { Input } from './components/Input';
 import { useState } from 'react';
+import { Microphone } from './components/Microphone';
+import { useSpeechContext, SpeechSegment } from '@speechly/react-client';
+import {
+  IntentType,
+  EntityType,
+  parseIntent,
+  parseShapeEntity,
+  parseSegment,
+} from './parser';
 
 function App() {
   const [depth, setDepth] = useState(40);
@@ -13,6 +23,14 @@ function App() {
   const [squat, setSquat] = useState(1);
   const [text, setText] = useState('');
   const [inputDisplay, setInputDisplay] = useState(true);
+
+  const { toggleRecording, speechState, segment } = useSpeechContext();
+
+  useEffect(() => {
+    if (segment === undefined) return;
+
+    handleVoiceShape(parseSegment(segment));
+  }, [segment]);
 
   const handleDepthChange = (newDepth: number) => {
     setDepth(newDepth);
@@ -70,6 +88,25 @@ function App() {
     setSquat(1.2);
   };
 
+  const handleVoiceShape = (shape: string | undefined) => {
+    if (shape === undefined) return;
+
+    switch (shape) {
+      case 'square':
+        handleSquare();
+        break;
+      case 'ellipse':
+        handleEllipse();
+        break;
+      case 'circle':
+        handleCircle();
+        break;
+      case 'rose':
+        handleRose();
+        break;
+    }
+  };
+
   return (
     <div className="app-wrapper">
       {inputDisplay ? null : (
@@ -116,6 +153,11 @@ function App() {
           />
         </div>
       </div>
+      <Microphone
+        segment={segment}
+        state={speechState}
+        onRecord={toggleRecording}
+      />
     </div>
   );
 }
