@@ -2,7 +2,7 @@
   width: 80vw;
   height: 15rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin: 1rem auto;
   transition: 0.5s;
@@ -28,9 +28,6 @@
   padding: 1rem;
 }
 
-.slider-wrapper {
-}
-
 @media only screen and (max-width: 850px) {
   .sliders {
     grid-template-columns: 1fr;
@@ -43,9 +40,6 @@
   flex-direction: column;
   justify-content: space-around;
   height: 75%;
-}
-
-.text-and-animation {
 }
 
 .shape-buttons {
