@@ -2,6 +2,31 @@ import { Slider, Select, MenuItem, TextField } from '@mui/material';
 import rose from '../icons/rose.svg';
 import './input.css';
 
+type Props = {
+  inputDisplay: boolean;
+  handleToggleInput: () => void;
+  size: number;
+  handleSizeChange: (newSize: number) => void;
+  depth: number;
+  handleDepthChange: (newDepth: number) => void;
+  scale: number;
+  handleScaleChange: (newScale: number) => void;
+  speed: number;
+  handleSpeedChange: (newSpeed: number) => void;
+  squat: number;
+  handleSquatChange: (newSquat: number) => void;
+  radius: number;
+  handleRadiusChange: (newRadius: number) => void;
+  handleSquare: () => void;
+  handleEllipse: () => void;
+  handleCircle: () => void;
+  handleRose: () => void;
+  animation: string;
+  handleAnimationChange: (newAnimation: string) => void;
+  text: string;
+  handleTextInput: (newTextInput: string) => void;
+};
+
 export const Input = ({
   inputDisplay,
   handleToggleInput,
@@ -25,7 +50,7 @@ export const Input = ({
   handleAnimationChange,
   text,
   handleTextInput,
-}) => {
+}: Props) => {
   return (
     <div className={`input-container ${inputDisplay ? '' : 'hidden'}`}>
       <button className="toggle-input-button" onClick={handleToggleInput}>
@@ -39,7 +64,9 @@ export const Input = ({
             max={50}
             step={1}
             value={size}
-            onChange={(e) => handleSizeChange(e.target.value)}
+            onChange={(e) =>
+              handleSizeChange(parseInt((e.target as HTMLInputElement)!.value))
+            }
           />
         </div>
         <div className="slider-wrapper">
@@ -49,7 +76,9 @@ export const Input = ({
             max={60}
             step={1}
             value={depth}
-            onChange={(e) => handleDepthChange(e.target.value)}
+            onChange={(e) =>
+              handleDepthChange(parseInt((e.target as HTMLInputElement)!.value))
+            }
           />
         </div>
         <div className="slider-wrapper">
@@ -59,7 +88,11 @@ export const Input = ({
             max={0.9}
             step={0.01}
             value={scale}
-            onChange={(e) => handleScaleChange(e.target.value)}
+            onChange={(e) =>
+              handleScaleChange(
+                parseFloat((e.target as HTMLInputElement)!.value)
+              )
+            }
           />
         </div>
         <div className="slider-wrapper">
@@ -69,7 +102,9 @@ export const Input = ({
             max={50}
             step={1}
             value={speed}
-            onChange={(e) => handleSpeedChange(e.target.value)}
+            onChange={(e) =>
+              handleSpeedChange(parseInt((e.target as HTMLInputElement)!.value))
+            }
           />
         </div>
         <div className="slider-wrapper">
@@ -79,7 +114,9 @@ export const Input = ({
             max={10}
             value={squat}
             step={0.2}
-            onChange={(e) => handleSquatChange(e.target.value)}
+            onChange={(e) =>
+              handleSquatChange(parseInt((e.target as HTMLInputElement)!.value))
+            }
           />
         </div>
         <div className="slider-wrapper">
@@ -89,7 +126,11 @@ export const Input = ({
             max={50}
             value={radius}
             step={2}
-            onChange={(e) => handleRadiusChange(e.target.value)}
+            onChange={(e) =>
+              handleRadiusChange(
+                parseInt((e.target as HTMLInputElement)!.value)
+              )
+            }
           />
         </div>
       </div>

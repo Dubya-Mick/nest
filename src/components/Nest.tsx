@@ -1,4 +1,16 @@
 import './nest.css';
+
+type Props = {
+  depth: number;
+  size: number;
+  speed: number;
+  scale: number;
+  text: string;
+  squat: number;
+  radius: number;
+  animation: string;
+};
+
 export const Nest = ({
   depth,
   size,
@@ -8,7 +20,7 @@ export const Nest = ({
   squat,
   radius,
   animation,
-}) => {
+}: Props): JSX.Element | null => {
   if (depth < 1) return null;
 
   const style = {
