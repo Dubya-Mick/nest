@@ -1,8 +1,7 @@
 import './App.css';
 import { Nest } from './components/Nest';
+import { Input } from './components/Input';
 import { useState } from 'react';
-
-import { Slider, Select, MenuItem, TextField } from '@mui/material';
 
 function App() {
   const [depth, setDepth] = useState(40);
@@ -72,100 +71,50 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app-wrapper">
       {inputDisplay ? null : (
         <i
           onClick={handleToggleInput}
-          class="fas fa-paint-brush display-input"
+          className="fas fa-paint-brush display-input"
         ></i>
       )}
-      <div className={`input-container ${inputDisplay ? '' : 'hidden'}`}>
-        <button className="toggle-input-button" onClick={handleToggleInput}>
-          Hide
-        </button>
-        <div>
-          <span>Size</span>
-          <Slider
-            min={10}
-            max={50}
-            step={1}
-            value={size}
-            onChange={(e) => handleSizeChange(e.target.value)}
-          />
-          <span>Depth</span>
-          <Slider
-            min={1}
-            max={60}
-            step={1}
-            value={depth}
-            onChange={(e) => handleDepthChange(e.target.value)}
-          />
-          <span>Scale</span>
-          <Slider
-            min={0.7}
-            max={0.9}
-            step={0.01}
-            value={scale}
-            onChange={(e) => handleScaleChange(e.target.value)}
-          />
-          <span>Loop Time</span>
-          <Slider
-            min={5}
-            max={50}
-            step={1}
-            value={speed}
-            onChange={(e) => handleSpeedChange(e.target.value)}
-          />
-          <span>Squat</span>
-          <Slider
-            min={1}
-            max={10}
-            value={squat}
-            step={0.2}
-            onChange={(e) => handleSquatChange(e.target.value)}
-          />
-          <span>Border Radius</span>
-          <Slider
-            min={0}
-            max={50}
-            value={radius}
-            step={2}
-            onChange={(e) => handleRadiusChange(e.target.value)}
-          />
-        </div>
-        <div className="shape-buttons">
-          <button onClick={handleSquare}>Square</button>
-          <button onClick={handleEllipse}>Ellipse</button>
-          <button onClick={handleCircle}>Circle</button>
-          <button onClick={handleRose}>Rose</button>
-        </div>
-        <Select
-          value={animation}
-          onChange={(e) => handleAnimationChange(e.target.value)}
-        >
-          <MenuItem value={'spin'}>Spin</MenuItem>
-          <MenuItem value={'scan'}>Scan</MenuItem>
-          <MenuItem value={'coil'}>Coil</MenuItem>
-        </Select>
-        <TextField
-          placeholder={'Add a word...'}
-          value={text}
-          variant="outlined"
-          onChange={(e) => handleTextInput(e.target.value)}
-        />
-      </div>
-
-      <div className={inputDisplay ? 'centered-with-input' : 'centered'}>
-        <Nest
-          depth={depth}
+      <div className="main-container">
+        <Input
+          inputDisplay={inputDisplay}
+          handleToggleInput={handleToggleInput}
           size={size}
-          speed={speed}
+          handleSizeChange={handleSizeChange}
+          depth={depth}
+          handleDepthChange={handleDepthChange}
           scale={scale}
-          text={text}
+          handleScaleChange={handleScaleChange}
+          speed={speed}
+          handleSpeedChange={handleSpeedChange}
           squat={squat}
+          handleSquatChange={handleSquatChange}
           radius={radius}
+          handleRadiusChange={handleRadiusChange}
+          handleSquare={handleSquare}
+          handleEllipse={handleEllipse}
+          handleCircle={handleCircle}
+          handleRose={handleRose}
           animation={animation}
+          handleAnimationChange={handleAnimationChange}
+          text={text}
+          handleTextInput={handleTextInput}
         />
+        <div className={inputDisplay ? 'centered-with-input' : 'centered'}>
+          <Nest
+            depth={depth}
+            size={size}
+            speed={speed}
+            scale={scale}
+            text={text}
+            squat={squat}
+            radius={radius}
+            animation={animation}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,75 @@
+.input-container {
+  width: 80vw;
+  height: 15rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem auto;
+  transition: 0.5s;
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+.toggle-input-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+}
+
+.sliders {
+  height: 100%;
+  width: 20rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 850px) {
+  .sliders {
+    grid-template-columns: 1fr;
+    overflow-y: scroll;
+  }
+}
+
+.buttons-et-al {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 75%;
+}
+
+.shape-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.shape-button {
+  border-radius: 2px;
+}
+
+.square {
+  height: 2rem;
+  width: 2rem;
+}
+
+.ellipse {
+  border-radius: 50%;
+  height: 2rem;
+  width: 3rem;
+}
+
+.circle {
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+}
+
+.rose {
+  height: 3rem;
+  outline: none;
+}

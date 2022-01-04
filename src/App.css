@@ -1,10 +1,23 @@
+body > #root > div {
+  height: 100vh;
+}
+
 body {
   font-family: 'Raleway', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 i {
   cursor: pointer;
 }
+
+/* .app-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
 
 .centered {
   position: fixed;
@@ -22,42 +35,10 @@ i {
   transition: top 1s;
 }
 
-.input-container {
-  width: 80vw;
-  margin: 1rem auto;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  transition: 0.5s;
-  position: relative;
-}
-
-.hidden {
-  display: none;
-}
-
 button {
   background-color: white;
   border: none;
   outline: 1px solid rgb(167, 167, 167);
   border-radius: 2px;
-  padding: 0.5rem 1rem;
   cursor: pointer;
-}
-
-.toggle-input-button {
-  position: absolute;
-  bottom: 1rem;
-  right: 0;
-}
-
-.shape-buttons {
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.select-conatiner {
-  width: 20rem;
 }

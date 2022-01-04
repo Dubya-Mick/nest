@@ -4,7 +4,6 @@ export const Nest = ({
   size,
   speed,
   scale,
-  shape,
   text,
   squat,
   radius,
