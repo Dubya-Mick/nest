@@ -14,35 +14,35 @@ function App() {
   const [text, setText] = useState('');
   const [inputDisplay, setInputDisplay] = useState(true);
 
-  const handleDepthChange = (newDepth) => {
+  const handleDepthChange = (newDepth: number) => {
     setDepth(newDepth);
   };
 
-  const handleScaleChange = (newScale) => {
+  const handleScaleChange = (newScale: number) => {
     setScale(newScale);
   };
 
-  const handleSpeedChange = (newSpeed) => {
+  const handleSpeedChange = (newSpeed: number) => {
     setSpeed(newSpeed);
   };
 
-  const handleSizeChange = (newSize) => {
+  const handleSizeChange = (newSize: number) => {
     setSize(newSize);
   };
 
-  const handleSquatChange = (newSquat) => {
+  const handleSquatChange = (newSquat: number) => {
     setSquat(newSquat);
   };
 
-  const handleRadiusChange = (newRadius) => {
+  const handleRadiusChange = (newRadius: number) => {
     setRadius(newRadius);
   };
 
-  const handleTextInput = (textInput) => {
+  const handleTextInput = (textInput: string) => {
     setText(textInput);
   };
 
-  const handleAnimationChange = (newAnimation) => {
+  const handleAnimationChange = (newAnimation: string) => {
     setAnimation(newAnimation);
   };
 
