@@ -90,16 +90,86 @@ function App() {
   const increaseSize = () => {
     setSize((size) => {
       const newSize = size * 1.1;
-      if (newSize > 50) return 50;
-      return newSize;
+      return newSize > 50 ? 50 : newSize;
     });
   };
 
   const decreaseSize = () => {
     setSize((size) => {
       const newSize = size * 0.9;
-      if (newSize < 10) return 10;
-      return newSize;
+      return newSize < 10 ? 10 : newSize;
+    });
+  };
+
+  const increaseSpeed = () => {
+    setSpeed((speed) => {
+      const newSpeed = speed * 0.9;
+      return newSpeed < 5 ? 5 : newSpeed;
+    });
+  };
+
+  const decreaseSpeed = () => {
+    setSpeed((speed) => {
+      const newSpeed = speed * 1.1;
+      return newSpeed > 50 ? 50 : newSpeed;
+    });
+  };
+
+  const increaseBorderRadius = () => {
+    setRadius((radius) => {
+      if (radius === 0) return 10;
+      const newRadius = radius + 10;
+      if (newRadius > 50) return 50;
+      return newRadius;
+    });
+  };
+
+  const decreaseBorderRadius = () => {
+    setRadius((radius) => {
+      const newRadius = radius - 10;
+      return newRadius < 1 ? 0 : newRadius;
+    });
+  };
+
+  const increaseSquat = () => {
+    setSquat((squat) => {
+      const newSquat = squat + 2;
+      return newSquat > 10 ? 10 : newSquat;
+    });
+  };
+
+  const decreaseSquat = () => {
+    setSquat((squat) => {
+      const newSquat = squat - 2;
+      return newSquat < 1 ? 1 : newSquat;
+    });
+  };
+
+  const increaseScale = () => {
+    setScale((scale) => {
+      const newScale = scale + 0.02;
+      return newScale > 0.9 ? 0.9 : newScale;
+    });
+  };
+
+  const decreaseScale = () => {
+    setScale((scale) => {
+      const newScale = scale - 0.02;
+      return newScale > 0.7 ? 0.7 : newScale;
+    });
+  };
+
+  const increaseDepth = () => {
+    setDepth((depth) => {
+      const newDepth = depth + 10;
+      return newDepth > 60 ? 60 : newDepth;
+    });
+  };
+
+  const decreaseDepth = () => {
+    setDepth((depth) => {
+      const newDepth = depth - 5;
+      return newDepth < 1 ? 1 : newDepth;
     });
   };
 
@@ -128,6 +198,22 @@ function App() {
     switch (attribute) {
       case 'size':
         increaseSize();
+        break;
+      case 'speed':
+        increaseSpeed();
+        break;
+      case 'roundness':
+        increaseBorderRadius();
+        break;
+      case 'squat':
+        increaseSquat();
+        break;
+      case 'scale':
+        increaseScale();
+        break;
+      case 'depth':
+        increaseDepth();
+        break;
     }
   };
 
@@ -137,6 +223,22 @@ function App() {
     switch (attribute) {
       case 'size':
         decreaseSize();
+        break;
+      case 'speed':
+        decreaseSpeed();
+        break;
+      case 'roundness':
+        decreaseBorderRadius();
+        break;
+      case 'squat':
+        decreaseSquat();
+        break;
+      case 'scale':
+        decreaseScale();
+        break;
+      case 'depth':
+        decreaseDepth();
+        break;
     }
   };
 
@@ -158,8 +260,6 @@ function App() {
         break;
     }
   };
-
-  console.log('render');
 
   return (
     <div className="app-wrapper">
