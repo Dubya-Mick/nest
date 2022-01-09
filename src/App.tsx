@@ -5,7 +5,12 @@ import { Input } from './components/Input';
 import { useState } from 'react';
 import { Microphone } from './components/Microphone';
 import { useSpeechContext, SpeechSegment } from '@speechly/react-client';
-import { parseSegment } from './parser';
+import {
+  IntentType,
+  parseIntent,
+  parseAttributeEntity,
+  parseShapeEntity,
+} from './parser';
 
 function App() {
   const [depth, setDepth] = useState(40);
@@ -23,7 +28,7 @@ function App() {
   useEffect(() => {
     if (segment === undefined) return;
 
-    handleVoiceShape(parseSegment(segment));
+    parseSegment(segment);
   }, [segment]);
 
   const handleDepthChange = (newDepth: number) => {
@@ -82,6 +87,22 @@ function App() {
     setSquat(1.2);
   };
 
+  const increaseSize = () => {
+    setSize((size) => {
+      const newSize = size * 1.1;
+      if (newSize > 50) return 50;
+      return newSize;
+    });
+  };
+
+  const decreaseSize = () => {
+    setSize((size) => {
+      const newSize = size * 0.9;
+      if (newSize < 10) return 10;
+      return newSize;
+    });
+  };
+
   const handleVoiceShape = (shape: string | undefined) => {
     if (shape === undefined) return;
 
@@ -100,6 +121,45 @@ function App() {
         break;
     }
   };
+
+  const handleVoiceIncrease = (attribute: string | undefined) => {
+    if (attribute === undefined) return;
+
+    switch (attribute) {
+      case 'size':
+        increaseSize();
+    }
+  };
+
+  const handleVoiceDecrease = (attribute: string | undefined) => {
+    if (attribute === undefined) return;
+
+    switch (attribute) {
+      case 'size':
+        decreaseSize();
+    }
+  };
+
+  const parseSegment = (segment: SpeechSegment) => {
+    const intent = parseIntent(segment);
+
+    switch (intent) {
+      case IntentType.SetShape:
+        const shape = parseShapeEntity(segment);
+        handleVoiceShape(shape);
+        break;
+      case IntentType.Increase:
+        const attributeInc = parseAttributeEntity(segment);
+        handleVoiceIncrease(attributeInc);
+        break;
+      case IntentType.Decrease:
+        const attributeDec = parseAttributeEntity(segment);
+        handleVoiceDecrease(attributeDec);
+        break;
+    }
+  };
+
+  console.log('render');
 
   return (
     <div className="app-wrapper">
