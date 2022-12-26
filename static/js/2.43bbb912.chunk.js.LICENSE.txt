@@ -4,6 +4,8 @@ object-assign
 @license MIT
 */
 
+/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
+
 /** @license MUI v5.0.1
  *
  * This source code is licensed under the MIT license found in the
