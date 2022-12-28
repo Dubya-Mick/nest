@@ -1,4 +1,11 @@
-import { Slider, Select, MenuItem, TextField } from '@mui/material';
+import {
+  Slider,
+  Select,
+  MenuItem,
+  TextField,
+  FormControlLabel,
+  Switch,
+} from '@mui/material';
 import rose from '../icons/rose.svg';
 import './input.css';
 
@@ -17,6 +24,8 @@ type Props = {
   handleSquatChange: (newSquat: number) => void;
   radius: number;
   handleRadiusChange: (newRadius: number) => void;
+  ripple: boolean;
+  handleToggleRipple: () => void;
   handleSquare: () => void;
   handleEllipse: () => void;
   handleCircle: () => void;
@@ -42,6 +51,8 @@ export const Input = ({
   handleSquatChange,
   radius,
   handleRadiusChange,
+  ripple,
+  handleToggleRipple,
   handleSquare,
   handleEllipse,
   handleCircle,
@@ -151,6 +162,11 @@ export const Input = ({
           <button className="rose" onClick={handleRose}>
             <img className="rose" src={rose} alt="rose"></img>
           </button>
+          <FormControlLabel
+            control={<Switch checked={ripple} onChange={handleToggleRipple} />}
+            label="Ripple"
+            labelPlacement="top"
+          />
         </div>
         <div className="text-and-animation">
           <Select
@@ -160,6 +176,7 @@ export const Input = ({
             <MenuItem value={'spin'}>Spin</MenuItem>
             <MenuItem value={'scan'}>Scan</MenuItem>
             <MenuItem value={'coil'}>Coil</MenuItem>
+            <MenuItem value={'breathe'}>Breathe</MenuItem>
           </Select>
           <TextField
             placeholder={'Add a word...'}

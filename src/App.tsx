@@ -24,6 +24,8 @@ function App() {
   const [squat, setSquat] = useState(1);
   const [text, setText] = useState('');
   const [inputDisplay, setInputDisplay] = useState(true);
+  const [ripple, setRipple] = useState(false);
+  const [rippleTime, setRippleTime] = useState(500);
 
   const { toggleRecording, speechState, segment } = useSpeechContext();
 
@@ -32,6 +34,10 @@ function App() {
 
     parseSegment(segment);
   }, [segment]);
+
+  const handleToggleRipple = () => {
+    setRipple(!ripple);
+  };
 
   const handleDepthChange = (newDepth: number) => {
     setDepth(newDepth);
@@ -287,6 +293,8 @@ function App() {
           handleSquatChange={handleSquatChange}
           radius={radius}
           handleRadiusChange={handleRadiusChange}
+          handleToggleRipple={handleToggleRipple}
+          ripple={ripple}
           handleSquare={handleSquare}
           handleEllipse={handleEllipse}
           handleCircle={handleCircle}
@@ -305,6 +313,8 @@ function App() {
             text={text}
             squat={squat}
             radius={radius}
+            ripple={ripple}
+            rippleTime={rippleTime}
             animation={animation}
           />
         </div>

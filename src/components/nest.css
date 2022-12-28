@@ -7,6 +7,32 @@
     5px -5px 20px rgb(209, 182, 175);
 }
 
+@keyframes breathe {
+  0% {
+    box-shadow: var(--black-shadow);
+  }
+
+  25% {
+    box-shadow: var(--yellow-shadow);
+  }
+
+  50% {
+    box-shadow: var(--green-shadow);
+    transform: scale(1.2);
+  }
+
+  75% {
+    box-shadow: var(--purple-shadow);
+  }
+
+  100% {
+    box-shadow: var(--black-shadow);
+    transform: scale(1);
+
+  }
+
+}
+
 @keyframes spin {
   0% {
     box-shadow: var(--black-shadow);
