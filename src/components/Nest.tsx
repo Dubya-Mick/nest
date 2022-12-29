@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { getCurrentStyle } from '../helpers/getCurrentStyle';
 import './nest.css';
 
 type Props = {
@@ -11,7 +12,8 @@ type Props = {
   radius: number;
   animation: string;
   ripple: boolean;
-  rippleTime: number;
+  rippleDelay: number;
+  baseRippleTime: number;
 };
 
 export const Nest = ({
@@ -24,38 +26,41 @@ export const Nest = ({
   radius,
   animation,
   ripple,
-  rippleTime,
+  rippleDelay,
+  baseRippleTime,
 }: Props): JSX.Element | null => {
   const [rippleOut, setRippleOut] = useState(false);
   const intervalRef: { current: number | null } = useRef(null);
 
   useEffect(() => {
-    if (ripple) {
-      window.setTimeout(() => {
-        const id = window.setInterval(() => {
-          setRippleOut((rippleOut) => !rippleOut);
-        }, 1200);
+    const handleRipple = () => {
+      if (intervalRef.current) window.clearInterval(intervalRef.current);
 
-        intervalRef.current = id;
-        return;
-      }, rippleTime);
-    }
-    if (intervalRef.current) window.clearInterval(intervalRef.current);
-  }, [ripple]);
+      if (ripple) {
+        window.setTimeout(() => {
+          const id = window.setInterval(() => {
+            setRippleOut((rippleOut) => !rippleOut);
+          }, 1200);
+
+          intervalRef.current = id;
+          return;
+        }, baseRippleTime);
+      }
+    };
+
+    handleRipple();
+  }, [ripple, rippleDelay, baseRippleTime]);
 
   if (depth < 1) return null;
 
-  const style = {
-    width: `${rippleOut ? size * 1.2 : size}rem`,
-    height: `${rippleOut ? (size * 1.2) / squat : size / squat}rem`,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    animation: `${animation} ${speed}s linear infinite`,
-    backgroundColor: 'white',
-    borderRadius: `${radius}%`,
-    transition: 'border-radius 1s, width 1s, height 1s',
-  };
+  const style = getCurrentStyle(
+    size,
+    squat,
+    animation,
+    speed,
+    radius,
+    rippleOut
+  );
 
   return (
     <div style={style}>
@@ -70,7 +75,8 @@ export const Nest = ({
         radius={radius}
         animation={animation}
         ripple={ripple}
-        rippleTime={(rippleTime *= 1.2)}
+        rippleDelay={rippleDelay}
+        baseRippleTime={(baseRippleTime += rippleDelay)}
       />
     </div>
   );

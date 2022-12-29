@@ -26,6 +26,8 @@ type Props = {
   handleRadiusChange: (newRadius: number) => void;
   ripple: boolean;
   handleToggleRipple: () => void;
+  handleRippleDelayChange: (newTime: number) => void;
+  rippleDelay: number;
   handleSquare: () => void;
   handleEllipse: () => void;
   handleCircle: () => void;
@@ -53,6 +55,8 @@ export const Input = ({
   handleRadiusChange,
   ripple,
   handleToggleRipple,
+  rippleDelay,
+  handleRippleDelayChange,
   handleSquare,
   handleEllipse,
   handleCircle,
@@ -144,6 +148,22 @@ export const Input = ({
             }
           />
         </div>
+        {ripple ? (
+          <div className="slider-wrapper">
+            <span>Ripple Delay</span>
+            <Slider
+              min={100}
+              max={1000}
+              step={100}
+              value={rippleDelay}
+              onChange={(e) =>
+                handleRippleDelayChange(
+                  parseInt((e.target as HTMLInputElement)!.value)
+                )
+              }
+            />
+          </div>
+        ) : null}
       </div>
       <div className="buttons-et-al">
         <div className="shape-buttons">
@@ -177,6 +197,7 @@ export const Input = ({
             <MenuItem value={'scan'}>Scan</MenuItem>
             <MenuItem value={'coil'}>Coil</MenuItem>
             <MenuItem value={'breathe'}>Breathe</MenuItem>
+            <MenuItem value={'none'}>None</MenuItem>
           </Select>
           <TextField
             placeholder={'Add a word...'}

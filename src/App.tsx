@@ -25,7 +25,8 @@ function App() {
   const [text, setText] = useState('');
   const [inputDisplay, setInputDisplay] = useState(true);
   const [ripple, setRipple] = useState(false);
-  const [rippleTime, setRippleTime] = useState(500);
+  const [baseRippleTime, setBaseRippleTime] = useState(500);
+  const [rippleDelay, setRippleDelay] = useState(300);
 
   const { toggleRecording, speechState, segment } = useSpeechContext();
 
@@ -69,6 +70,10 @@ function App() {
 
   const handleAnimationChange = (newAnimation: string) => {
     setAnimation(newAnimation);
+  };
+
+  const handleRippleDelayChange = (newTime: number) => {
+    setRippleDelay(newTime);
   };
 
   const handleToggleInput = () => {
@@ -269,6 +274,8 @@ function App() {
     }
   };
 
+  console.log('ripple time', rippleDelay);
+
   return (
     <div className="app-wrapper">
       {inputDisplay ? null : (
@@ -295,6 +302,8 @@ function App() {
           handleRadiusChange={handleRadiusChange}
           handleToggleRipple={handleToggleRipple}
           ripple={ripple}
+          rippleDelay={rippleDelay}
+          handleRippleDelayChange={handleRippleDelayChange}
           handleSquare={handleSquare}
           handleEllipse={handleEllipse}
           handleCircle={handleCircle}
@@ -314,7 +323,8 @@ function App() {
             squat={squat}
             radius={radius}
             ripple={ripple}
-            rippleTime={rippleTime}
+            rippleDelay={rippleDelay}
+            baseRippleTime={baseRippleTime}
             animation={animation}
           />
         </div>
