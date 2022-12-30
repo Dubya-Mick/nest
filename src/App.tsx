@@ -27,6 +27,7 @@ function App() {
   const [ripple, setRipple] = useState(false);
   const [baseRippleTime, setBaseRippleTime] = useState(500);
   const [rippleDelay, setRippleDelay] = useState(300);
+  const [backgroundColors, setBackgroundColors] = useState(['#ffffff']);
 
   const { toggleRecording, speechState, segment } = useSpeechContext();
 
@@ -35,6 +36,16 @@ function App() {
 
     parseSegment(segment);
   }, [segment]);
+
+  const handleAddBgColor = (color: string) => {
+    const noDupes = new Set([...backgroundColors, color]);
+    setBackgroundColors(Array.from(noDupes));
+  };
+
+  const handleRemoveBgColor = (color: string) => {
+    const newColors = backgroundColors.filter((curColor) => curColor !== color);
+    setBackgroundColors(newColors);
+  };
 
   const handleToggleRipple = () => {
     setRipple(!ripple);
@@ -274,8 +285,6 @@ function App() {
     }
   };
 
-  console.log('ripple time', rippleDelay);
-
   return (
     <div className="app-wrapper">
       {inputDisplay ? null : (
@@ -312,6 +321,9 @@ function App() {
           handleAnimationChange={handleAnimationChange}
           text={text}
           handleTextInput={handleTextInput}
+          handleAddBgColor={handleAddBgColor}
+          handleRemoveBgColor={handleRemoveBgColor}
+          backgroundColors={backgroundColors}
         />
         <div className={inputDisplay ? 'centered-with-input' : 'centered'}>
           <Nest
@@ -326,6 +338,8 @@ function App() {
             rippleDelay={rippleDelay}
             baseRippleTime={baseRippleTime}
             animation={animation}
+            backgroundColors={backgroundColors}
+            currentColorIndex={0}
           />
         </div>
       </div>

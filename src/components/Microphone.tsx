@@ -49,7 +49,7 @@ const Transcript = React.memo(
     if (segment === undefined) {
       return (
         <div>
-          <em>Waiting for speech input...</em>
+          <em>Hit start to speak a command...</em>
         </div>
       );
     }

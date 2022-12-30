@@ -7,6 +7,7 @@ import {
   Switch,
 } from '@mui/material';
 import rose from '../icons/rose.svg';
+import { Colors } from './Colors';
 import './input.css';
 
 type Props = {
@@ -36,6 +37,9 @@ type Props = {
   handleAnimationChange: (newAnimation: string) => void;
   text: string;
   handleTextInput: (newTextInput: string) => void;
+  handleAddBgColor: (color: string) => void;
+  handleRemoveBgColor: (color: string) => void;
+  backgroundColors: string[];
 };
 
 export const Input = ({
@@ -65,6 +69,9 @@ export const Input = ({
   handleAnimationChange,
   text,
   handleTextInput,
+  handleAddBgColor,
+  handleRemoveBgColor,
+  backgroundColors,
 }: Props) => {
   return (
     <div className={`input-container ${inputDisplay ? '' : 'hidden'}`}>
@@ -165,6 +172,11 @@ export const Input = ({
           </div>
         ) : null}
       </div>
+      <Colors
+        backgroundColors={backgroundColors}
+        handleAddBgColor={handleAddBgColor}
+        handleRemoveBgColor={handleRemoveBgColor}
+      />
       <div className="buttons-et-al">
         <div className="shape-buttons">
           <button

@@ -4,7 +4,8 @@ export const getCurrentStyle = (
   animation: string,
   speed: number,
   radius: number,
-  rippleOut: boolean
+  rippleOut: boolean,
+  backgroundColor: string
 ) => {
   const currentAnimation =
     animation === 'none' ? 'none' : `${animation} ${speed}s linear infinite`;
@@ -19,13 +20,13 @@ export const getCurrentStyle = (
   const currentHeight = `${rippleOut ? (size * 1.2) / squat : size / squat}rem`;
 
   const style = {
+    backgroundColor,
     width: currentWidth,
     height: currentHeight,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     animation: currentAnimation,
-    backgroundColor: 'white',
     borderRadius: `${radius}%`,
     transition: 'border-radius 1s, width 1s, height 1s',
     boxShadow: currentShadow,

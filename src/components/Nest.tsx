@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { getCurrentStyle } from '../helpers/getCurrentStyle';
+import { handleColorIteration } from '../helpers/handleColorIteration';
 import './nest.css';
 
 type Props = {
@@ -14,6 +15,8 @@ type Props = {
   ripple: boolean;
   rippleDelay: number;
   baseRippleTime: number;
+  backgroundColors: string[];
+  currentColorIndex: number;
 };
 
 export const Nest = ({
@@ -28,6 +31,8 @@ export const Nest = ({
   ripple,
   rippleDelay,
   baseRippleTime,
+  backgroundColors,
+  currentColorIndex,
 }: Props): JSX.Element | null => {
   const [rippleOut, setRippleOut] = useState(false);
   const intervalRef: { current: number | null } = useRef(null);
@@ -53,13 +58,19 @@ export const Nest = ({
 
   if (depth < 1) return null;
 
+  const { currentColor, nextColorIndex } = handleColorIteration(
+    backgroundColors,
+    currentColorIndex
+  );
+
   const style = getCurrentStyle(
     size,
     squat,
     animation,
     speed,
     radius,
-    rippleOut
+    rippleOut,
+    currentColor
   );
 
   return (
@@ -77,6 +88,8 @@ export const Nest = ({
         ripple={ripple}
         rippleDelay={rippleDelay}
         baseRippleTime={(baseRippleTime += rippleDelay)}
+        backgroundColors={backgroundColors}
+        currentColorIndex={nextColorIndex}
       />
     </div>
   );
