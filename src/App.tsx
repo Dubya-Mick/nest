@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './App.css';
 import { Nest } from './components/Nest';
 import { Input } from './components/Input';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Microphone } from './components/Microphone';
 import { useSpeechContext, SpeechSegment } from '@speechly/react-client';
 import {
@@ -11,6 +11,7 @@ import {
   parseAttributeEntity,
   parseShapeEntity,
 } from './parser';
+import { cycleColorInward, cycleColorOutward } from './helpers/cycleColor';
 
 //test comment
 
@@ -28,6 +29,10 @@ function App() {
   const [baseRippleTime, setBaseRippleTime] = useState(500);
   const [rippleDelay, setRippleDelay] = useState(300);
   const [backgroundColors, setBackgroundColors] = useState(['#ffffff']);
+  const [isCyclingBgColor, setIsCyclingBgColor] = useState(false);
+  const [bgColorCyclePattern, setBgColorCyclePattern] = useState('inward');
+  const [bgColorCycleSpeed, setBgColorCycleSpeed] = useState(500);
+  const cycleIntervalRef: { current: number | null } = useRef(null);
 
   const { toggleRecording, speechState, segment } = useSpeechContext();
 
@@ -36,6 +41,26 @@ function App() {
 
     parseSegment(segment);
   }, [segment]);
+
+  const handleBgColorCycleSpeedChange = (newSpeed: number) => {
+    setBgColorCycleSpeed(newSpeed);
+  };
+
+  const handleToggleColorCycle = () => {
+    setIsCyclingBgColor(!isCyclingBgColor);
+  };
+
+  const handleBgColorPattern = (pattern: string) => {
+    setBgColorCyclePattern(pattern);
+  };
+
+  const handleCycleBgColorInward = () => {
+    setBackgroundColors((prevColors) => cycleColorInward(prevColors));
+  };
+
+  const handleCycleBgColorOutward = () => {
+    setBackgroundColors((prevColors) => cycleColorOutward(prevColors));
+  };
 
   const handleAddBgColor = (color: string) => {
     const noDupes = new Set([...backgroundColors, color]);
@@ -285,6 +310,25 @@ function App() {
     }
   };
 
+  const handleColorCycle = () => {
+    if (cycleIntervalRef.current)
+      window.clearInterval(cycleIntervalRef.current);
+
+    if (isCyclingBgColor) {
+      const id = window.setInterval(
+        bgColorCyclePattern === 'inward'
+          ? handleCycleBgColorInward
+          : handleCycleBgColorOutward,
+        bgColorCycleSpeed
+      );
+      cycleIntervalRef.current = id;
+    }
+  };
+
+  useEffect(() => {
+    handleColorCycle();
+  }, [isCyclingBgColor, bgColorCyclePattern, bgColorCycleSpeed]);
+
   return (
     <div className="app-wrapper">
       {inputDisplay ? null : (
@@ -324,6 +368,12 @@ function App() {
           handleAddBgColor={handleAddBgColor}
           handleRemoveBgColor={handleRemoveBgColor}
           backgroundColors={backgroundColors}
+          handleToggleColorCycle={handleToggleColorCycle}
+          isCyclingBgColor={isCyclingBgColor}
+          handleBgColorPattern={handleBgColorPattern}
+          bgColorCyclePattern={bgColorCyclePattern}
+          bgColorCycleSpeed={bgColorCycleSpeed}
+          handleBgColorCycleSpeedChange={handleBgColorCycleSpeedChange}
         />
         <div className={inputDisplay ? 'centered-with-input' : 'centered'}>
           <Nest

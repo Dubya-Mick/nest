@@ -40,6 +40,12 @@ type Props = {
   handleAddBgColor: (color: string) => void;
   handleRemoveBgColor: (color: string) => void;
   backgroundColors: string[];
+  handleToggleColorCycle: () => void;
+  isCyclingBgColor: boolean;
+  handleBgColorPattern: (pattern: string) => void;
+  bgColorCyclePattern: string;
+  bgColorCycleSpeed: number;
+  handleBgColorCycleSpeedChange: (newSpeed: number) => void;
 };
 
 export const Input = ({
@@ -72,6 +78,12 @@ export const Input = ({
   handleAddBgColor,
   handleRemoveBgColor,
   backgroundColors,
+  handleToggleColorCycle,
+  isCyclingBgColor,
+  handleBgColorPattern,
+  bgColorCyclePattern,
+  handleBgColorCycleSpeedChange,
+  bgColorCycleSpeed,
 }: Props) => {
   return (
     <div className={`input-container ${inputDisplay ? '' : 'hidden'}`}>
@@ -178,7 +190,7 @@ export const Input = ({
         handleRemoveBgColor={handleRemoveBgColor}
       />
       <div className="buttons-et-al">
-        <div className="shape-buttons">
+        <div className="flex-row">
           <button
             className="shape-button square"
             onClick={handleSquare}
@@ -194,11 +206,47 @@ export const Input = ({
           <button className="rose" onClick={handleRose}>
             <img className="rose" src={rose} alt="rose"></img>
           </button>
+        </div>
+        <div className="flex-row">
           <FormControlLabel
             control={<Switch checked={ripple} onChange={handleToggleRipple} />}
             label="Ripple"
             labelPlacement="top"
           />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isCyclingBgColor}
+                onChange={handleToggleColorCycle}
+              />
+            }
+            label="Cycle Color"
+            labelPlacement="top"
+          />
+          {isCyclingBgColor ? (
+            <>
+              <Select
+                value={bgColorCyclePattern}
+                onChange={(e) => handleBgColorPattern(e.target.value)}
+              >
+                <MenuItem value={'inward'}>Inward</MenuItem>
+                <MenuItem value={'outward'}>Outward</MenuItem>
+              </Select>
+              <Select
+                value={bgColorCycleSpeed}
+                onChange={(e) =>
+                  handleBgColorCycleSpeedChange(
+                    parseInt((e.target as HTMLInputElement)!.value)
+                  )
+                }
+              >
+                <MenuItem value={500}>Slow</MenuItem>
+                <MenuItem value={250}>Medium</MenuItem>
+                <MenuItem value={100}>Fast</MenuItem>
+                <MenuItem value={25}>EXTREME</MenuItem>
+              </Select>
+            </>
+          ) : null}
         </div>
         <div className="text-and-animation">
           <Select
