@@ -42,3 +42,39 @@ button {
   border-radius: 2px;
   cursor: pointer;
 }
+
+
+
+@keyframes test1 {
+
+  50% {
+    transform: scale(2);
+  }
+
+  100% {
+    transform: scale(1);
+
+  }
+}
+
+@keyframes test2 {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.testy {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  animation: test1 2s linear infinite;
+}
+
+.testy-2 {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  animation: test1 2s linear infinite;
+  animation-delay: 1s;
+}

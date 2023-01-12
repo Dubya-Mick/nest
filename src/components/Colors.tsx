@@ -31,7 +31,17 @@ export const Colors: React.FC<ColorsProps> = ({
   return (
     <div>
       <p>Background Colors</p>
-      <div style={{ display: 'flex' }}>{bgChips}</div>
+      <div
+        style={{
+          display: 'flex',
+          maxWidth: '10rem',
+          flexWrap: 'wrap',
+          maxHeight: '6rem',
+          overflow: 'scroll',
+        }}
+      >
+        {bgChips}
+      </div>
       <input type="color" onInput={handleColorChange} value={currentColor} />
       <p>Shadow Colors</p>
       <input type="color" />
